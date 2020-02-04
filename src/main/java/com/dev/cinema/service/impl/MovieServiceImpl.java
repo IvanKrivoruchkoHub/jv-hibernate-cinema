@@ -15,12 +15,20 @@ public class MovieServiceImpl implements MovieService {
     private MovieDao movieDao;
 
     @Override
-    public Movie add(Movie movie) throws DataProcessingExeption {
-        return movieDao.add(movie);
+    public Movie add(Movie movie) {
+        try {
+            return movieDao.add(movie);
+        } catch (DataProcessingExeption dataProcessingExeption) {
+            throw new RuntimeException(dataProcessingExeption);
+        }
     }
 
     @Override
-    public List<Movie> getAll() throws DataProcessingExeption {
-        return movieDao.getAll();
+    public List<Movie> getAll() {
+        try {
+            return movieDao.getAll();
+        } catch (DataProcessingExeption dataProcessingExeption) {
+            throw new RuntimeException(dataProcessingExeption);
+        }
     }
 }
