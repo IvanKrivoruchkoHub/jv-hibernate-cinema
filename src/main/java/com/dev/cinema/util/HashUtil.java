@@ -26,7 +26,7 @@ public class HashUtil {
                 hashedPassword.append(String.format("%02x", b));
             }
         } catch (NoSuchAlgorithmException e) {
-            LOGGER.error("Don't find algorithm SHA-512" ,e);
+            LOGGER.error("Don't find algorithm SHA-512", e);
         }
         return hashedPassword.toString();
     }
