@@ -29,7 +29,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             Root<MovieSession> root = criteriaQuery.from(MovieSession.class);
 
             List<Predicate> conditionsList = new ArrayList<>();
-            conditionsList.add(criteriaBuilder.equal(root.get("id"), movieId));
+            conditionsList.add(criteriaBuilder.equal(root.get("movie").get("id"), movieId));
 
             LocalDateTime afterDate = date.atStartOfDay();
             LocalDateTime beforeDate = date.plusDays(1).atStartOfDay();

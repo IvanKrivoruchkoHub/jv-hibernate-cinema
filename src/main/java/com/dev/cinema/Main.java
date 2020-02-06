@@ -3,23 +3,25 @@ package com.dev.cinema;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.dev.cinema.dao.impl.MovieDaoImpl;
-import com.dev.cinema.exceptions.DataProcessingExeption;
+import com.dev.cinema.exceptions.AuthenticationException;
 import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
+import com.dev.cinema.model.User;
+import com.dev.cinema.service.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.UserService;
 import org.apache.log4j.Logger;
 
 public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
 
-    private static final Logger LOGGER = Logger.getLogger(MovieDaoImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(Main.class);
 
-    public static void main(String[] args) throws DataProcessingExeption {
+    public static void main(String[] args) throws AuthenticationException {
         LOGGER.info("Start testing MovieService");
         MovieService movieService = (MovieService) injector.getInstance(MovieService.class);
         movieService.getAll().forEach(System.out::println);
@@ -46,5 +48,19 @@ public class Main {
         movieSessionService.add(movieSession);
         movieSessionService.findAvailableSessions(movie.getId(),
                 LocalDate.of(2020, 2, 26)).forEach(System.out::println);
+
+        LOGGER.info("Start testing UserService");
+        UserService userService = (UserService) injector.getInstance(UserService.class);
+        User user = new User();
+        user.setEmail("jones@gmail.com");
+        user.setPassword("jones");
+        userService.add(user);
+        System.out.println(userService.findByEmail("jones@gmail.com"));
+
+        LOGGER.info("Start testing AuthenticationService");
+        AuthenticationService authenticationService
+                = (AuthenticationService) injector.getInstance(AuthenticationService.class);
+        System.out.println(authenticationService.register("parker@gmail.com", "parker"));
+        System.out.println(authenticationService.login("parker@gmail.com", "parker"));
     }
 }
