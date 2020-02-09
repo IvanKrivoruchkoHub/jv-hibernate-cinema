@@ -13,6 +13,7 @@ import com.dev.cinema.service.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import org.apache.log4j.Logger;
 
@@ -62,5 +63,13 @@ public class Main {
                 = (AuthenticationService) injector.getInstance(AuthenticationService.class);
         System.out.println(authenticationService.register("parker@gmail.com", "parker"));
         System.out.println(authenticationService.login("parker@gmail.com", "parker"));
+
+        LOGGER.info("Start testing ShoppingCartService");
+        ShoppingCartService shoppingCartService
+                = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+        shoppingCartService.registerNewShoppingCart(userService.findByEmail("parker@gmail.com"));
+        shoppingCartService.addSession(movieSession, userService.findByEmail("parker@gmail.com"));
+        shoppingCartService.getByUser(userService.findByEmail("parker@gmail.com"));
+
     }
 }
