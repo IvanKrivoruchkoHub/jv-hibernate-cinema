@@ -1,6 +1,7 @@
 package com.dev.cinema.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.dev.cinema.dao.OrderDao;
@@ -8,6 +9,7 @@ import com.dev.cinema.lib.anotations.Inject;
 import com.dev.cinema.lib.anotations.Service;
 import com.dev.cinema.model.Order;
 import com.dev.cinema.model.ShoppingCart;
+import com.dev.cinema.model.Ticket;
 import com.dev.cinema.model.User;
 import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
@@ -23,11 +25,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order completeOrder(ShoppingCart shoppingCart) {
         Order order = new Order();
-        order.setTickets(shoppingCart.getTickets());
+        List<Ticket> list = new ArrayList<>();
+        list.addAll(shoppingCart.getTickets());
+        order.setTickets(list);
         order.setUser(shoppingCart.getUser());
         order.setOrderDate(LocalDateTime.now());
-        //shoppingCartService.clear(shoppingCart.getUser());
-        return orderDao.add(order);
+        order = orderDao.add(order);
+        shoppingCartService.clear(shoppingCart.getUser());
+        return order;
     }
 
     @Override
