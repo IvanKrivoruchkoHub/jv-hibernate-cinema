@@ -1,5 +1,9 @@
 package com.dev.cinema.lib;
 
+import com.dev.cinema.lib.anotations.Dao;
+import com.dev.cinema.lib.anotations.Inject;
+import com.dev.cinema.lib.anotations.Service;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -10,10 +14,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.dev.cinema.lib.anotations.Dao;
-import com.dev.cinema.lib.anotations.Inject;
-import com.dev.cinema.lib.anotations.Service;
 
 public class Injector {
     private static final Map<String, Injector> injectors = new HashMap<>();
