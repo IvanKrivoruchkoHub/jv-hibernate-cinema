@@ -5,6 +5,7 @@ import com.dev.cinema.exceptions.DataProcessingExeption;
 import com.dev.cinema.lib.anotations.Dao;
 import com.dev.cinema.model.Ticket;
 import com.dev.cinema.util.HibernateUtil;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
