@@ -1,28 +1,31 @@
 package com.dev.cinema.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 
 @Entity
-@Table(name = "tickets")
-public class Ticket {
+@Table(name = "orders")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    private Movie movie;
-    @ManyToOne
-    private CinemaHall cinemaHall;
+
+    private LocalDateTime orderDate;
+
     @ManyToOne
     private User user;
-    private LocalDateTime showTime;
+
+    @OneToMany
+    private List<Ticket> tickets;
 
     public Long getId() {
         return id;
@@ -32,20 +35,12 @@ public class Ticket {
         this.id = id;
     }
 
-    public Movie getMovie() {
-        return movie;
+    public LocalDateTime getOrderDate() {
+        return orderDate;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
-    public CinemaHall getCinemaHall() {
-        return cinemaHall;
-    }
-
-    public void setCinemaHall(CinemaHall cinemaHall) {
-        this.cinemaHall = cinemaHall;
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
     }
 
     public User getUser() {
@@ -56,22 +51,21 @@ public class Ticket {
         this.user = user;
     }
 
-    public LocalDateTime getShowTime() {
-        return showTime;
+    public List<Ticket> getTickets() {
+        return tickets;
     }
 
-    public void setShowTime(LocalDateTime showTime) {
-        this.showTime = showTime;
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     @Override
     public String toString() {
-        return "Ticket{"
+        return "Order{"
                 + "id=" + id
-                + ", movie=" + movie
-                + ", cinemaHall=" + cinemaHall
+                + ", orderDate=" + orderDate
                 + ", user=" + user
-                + ", showTime=" + showTime
+                + ", tickets=" + tickets
                 + '}';
     }
 }

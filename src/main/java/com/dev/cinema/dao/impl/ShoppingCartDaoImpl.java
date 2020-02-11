@@ -1,11 +1,18 @@
 package com.dev.cinema.dao.impl;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
+
 import com.dev.cinema.dao.ShoppingCartDao;
 import com.dev.cinema.exceptions.DataProcessingExeption;
 import com.dev.cinema.lib.anotations.Dao;
+import com.dev.cinema.model.Order;
 import com.dev.cinema.model.ShoppingCart;
 import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -33,11 +40,13 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     @Override
     public ShoppingCart getByUser(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<ShoppingCart> query = session.createQuery(
-                    "from ShoppingCart sc left join fetch sc.tickets "
-                            + "where sc.user = :user", ShoppingCart.class);
-            query.setParameter("user", user);
-            return query.uniqueResult();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<ShoppingCart> criteriaQuery
+                    = criteriaBuilder.createQuery(ShoppingCart.class);
+            Root<ShoppingCart> root = criteriaQuery.from(ShoppingCart.class);
+            root.fetch("tickets", JoinType.LEFT);
+            criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("user"), user));
+            return session.createQuery(criteriaQuery).uniqueResult();
         } catch (HibernateException e) {
             throw new DataProcessingExeption("Can't find shoppingCart by user", e);
         }

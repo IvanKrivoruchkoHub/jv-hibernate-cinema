@@ -1,5 +1,7 @@
 package com.dev.cinema.service.impl;
 
+import java.util.Collections;
+
 import com.dev.cinema.dao.ShoppingCartDao;
 import com.dev.cinema.dao.TicketDao;
 import com.dev.cinema.lib.anotations.Inject;
@@ -42,5 +44,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setUser(user);
         shoppingCartDao.add(shoppingCart);
+    }
+
+    @Override
+    public void clear(User user) {
+        ShoppingCart shoppingCart = shoppingCartDao.getByUser(user);
+        shoppingCart.setTickets(Collections.emptyList());
+        shoppingCartDao.update(shoppingCart);
     }
 }

@@ -8,11 +8,13 @@ import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
+import com.dev.cinema.model.ShoppingCart;
 import com.dev.cinema.model.User;
 import com.dev.cinema.service.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import org.apache.log4j.Logger;
@@ -52,11 +54,6 @@ public class Main {
 
         LOGGER.info("Start testing UserService");
         UserService userService = (UserService) injector.getInstance(UserService.class);
-        User user = new User();
-        user.setEmail("jones@gmail.com");
-        user.setPassword("jones");
-        userService.add(user);
-        System.out.println(userService.findByEmail("jones@gmail.com"));
 
         LOGGER.info("Start testing AuthenticationService");
         AuthenticationService authenticationService
@@ -67,9 +64,13 @@ public class Main {
         LOGGER.info("Start testing ShoppingCartService");
         ShoppingCartService shoppingCartService
                 = (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
-        shoppingCartService.registerNewShoppingCart(userService.findByEmail("parker@gmail.com"));
         shoppingCartService.addSession(movieSession, userService.findByEmail("parker@gmail.com"));
-        shoppingCartService.getByUser(userService.findByEmail("parker@gmail.com"));
+        ShoppingCart shoppingCart
+                = shoppingCartService.getByUser(userService.findByEmail("parker@gmail.com"));
 
+        LOGGER.info("Start testing OrderService");
+        OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
+        orderService.completeOrder(shoppingCart);
+        orderService.getOrderHistory(userService.findByEmail("parker@gmail.com"));
     }
 }

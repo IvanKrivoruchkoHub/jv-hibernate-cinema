@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "shopping_cart")
+@Table(name = "shopping_carts")
 public class ShoppingCart {
     @Id
     private Long id;
@@ -19,7 +19,7 @@ public class ShoppingCart {
     private List<Ticket> tickets;
     @OneToOne
     @MapsId
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "shopping_cart_id")
     private User user;
 
     public Long getId() {
