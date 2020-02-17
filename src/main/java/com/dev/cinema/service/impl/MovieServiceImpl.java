@@ -2,16 +2,17 @@ package com.dev.cinema.service.impl;
 
 import com.dev.cinema.dao.MovieDao;
 import com.dev.cinema.exceptions.DataProcessingExeption;
-import com.dev.cinema.lib.anotations.Inject;
-import com.dev.cinema.lib.anotations.Service;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.service.MovieService;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class MovieServiceImpl implements MovieService {
-    @Inject
+    @Autowired
     private MovieDao movieDao;
 
     @Override

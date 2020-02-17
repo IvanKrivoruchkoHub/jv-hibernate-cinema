@@ -1,8 +1,6 @@
 package com.dev.cinema.service.impl;
 
 import com.dev.cinema.dao.OrderDao;
-import com.dev.cinema.lib.anotations.Inject;
-import com.dev.cinema.lib.anotations.Service;
 import com.dev.cinema.model.Order;
 import com.dev.cinema.model.ShoppingCart;
 import com.dev.cinema.model.Ticket;
@@ -14,12 +12,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class OrderServiceImpl implements OrderService {
-    @Inject
+    @Autowired
     private OrderDao orderDao;
 
-    @Inject
+    @Autowired
     private ShoppingCartService shoppingCartService;
 
     @Override
