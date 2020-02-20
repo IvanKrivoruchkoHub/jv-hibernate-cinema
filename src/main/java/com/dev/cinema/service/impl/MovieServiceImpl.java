@@ -32,4 +32,9 @@ public class MovieServiceImpl implements MovieService {
             throw new RuntimeException(dataProcessingExeption);
         }
     }
+
+    @Override
+    public Movie getById(Long id) {
+        return movieDao.getById(id);
+    }
 }

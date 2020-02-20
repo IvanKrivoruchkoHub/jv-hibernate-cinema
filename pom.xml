@@ -17,6 +17,7 @@
             https://raw.githubusercontent.com/mate-academy/style-guides/master/java/checkstyle.xml
         </maven.checkstyle.plugin.configLocation>
         <spring.version>5.2.3.RELEASE</spring.version>
+        <hibernate.version>5.4.5.Final</hibernate.version>
     </properties>
 
     <dependencies>
@@ -43,12 +44,12 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.4.5.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-java8</artifactId>
-            <version>5.4.5.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -77,12 +78,7 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.10.2</version>
         </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-    </dependencies>
+</dependencies>
 
     <build>
         <plugins>

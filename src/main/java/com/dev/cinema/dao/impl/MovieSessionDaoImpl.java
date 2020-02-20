@@ -36,10 +36,10 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             List<Predicate> conditionsList = new ArrayList<>();
             conditionsList.add(criteriaBuilder.equal(root.get("movie").get("id"), movieId));
 
-            LocalDateTime afterDate = date.atStartOfDay();
-            LocalDateTime beforeDate = date.plusDays(1).atStartOfDay();
+            LocalDateTime beforeDate = date.atStartOfDay();
+            LocalDateTime afterDate = date.plusDays(1).atStartOfDay();
             conditionsList.add(criteriaBuilder
-                    .between(root.get("showTime"), afterDate, beforeDate));
+                    .between(root.get("showTime"), beforeDate, afterDate));
 
             criteriaQuery.select(root).where(conditionsList.toArray(new Predicate[]{}));
             return session.createQuery(criteriaQuery).getResultList();
@@ -63,6 +63,27 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
                 transaction.rollback();
             }
             throw new DataProcessingExeption("Can't insert movie session entity", e);
+        }
+    }
+
+    @Override
+    public List<MovieSession> getAll() {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaQuery<MovieSession> criteriaQuery = session.getCriteriaBuilder()
+                    .createQuery(MovieSession.class);
+            criteriaQuery.from(MovieSession.class);
+            return session.createQuery(criteriaQuery).getResultList();
+        } catch (Exception e) {
+            throw new DataProcessingExeption("Error retrieving all movie session", e);
+        }
+    }
+
+    @Override
+    public MovieSession getById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(MovieSession.class, id);
+        } catch (Exception e) {
+            throw new DataProcessingExeption("Error can't get movie session by id", e);
         }
     }
 }
