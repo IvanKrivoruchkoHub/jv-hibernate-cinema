@@ -47,4 +47,13 @@ public class MovieDaoImpl implements MovieDao {
             throw new DataProcessingExeption("Error retrieving all movies", e);
         }
     }
+
+    @Override
+    public Movie getById(Long id) throws DataProcessingExeption {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Movie.class, id);
+        } catch (Exception e) {
+            throw new DataProcessingExeption("Error retrieving all movies", e);
+        }
+    }
 }
