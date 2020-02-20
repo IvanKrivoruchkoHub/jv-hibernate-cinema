@@ -24,7 +24,7 @@ public class MovieController {
     public List<MovieDto> getAllMovies() {
         return movieService.getAll()
                 .stream()
-                .map(this::transformMovieToMovieDto)
+                .map(this::transformToMovieDto)
                 .collect(Collectors.toList());
     }
 
@@ -36,7 +36,7 @@ public class MovieController {
         movieService.add(movie);
     }
 
-    private MovieDto transformMovieToMovieDto(Movie movie) {
+    private MovieDto transformToMovieDto(Movie movie) {
         MovieDto movieDto = new MovieDto();
         movieDto.setTitle(movie.getTitle());
         movieDto.setDescription(movie.getDescription());

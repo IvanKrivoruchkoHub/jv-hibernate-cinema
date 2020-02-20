@@ -15,12 +15,8 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping(value = "/login")
-    public void login(@RequestBody UserRequestDto userRequestDto) {
-        try {
-            authenticationService.login(userRequestDto.getEmail(), userRequestDto.getPassword());
-        } catch (AuthenticationException e) {
-            throw new RuntimeException(e);
-        }
+    public void login(@RequestBody UserRequestDto userRequestDto) throws AuthenticationException {
+        authenticationService.login(userRequestDto.getEmail(), userRequestDto.getPassword());
     }
 
     @PostMapping(value = "/register")

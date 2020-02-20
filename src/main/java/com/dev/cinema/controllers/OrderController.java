@@ -40,11 +40,11 @@ public class OrderController {
     public List<OrderResponseDto> getOrdersHistory(@RequestParam Long userId) {
         return orderService.getOrderHistory(userService.getById(userId))
                 .stream()
-                .map(this::toOrderResponseDto)
+                .map(this::transformToOrderResponseDto)
                 .collect(Collectors.toList());
     }
 
-    private TicketDto toTicketDto(Ticket ticket) {
+    private TicketDto transformToTicketDto(Ticket ticket) {
         TicketDto dto = new TicketDto();
         dto.setUserId(ticket.getUser().getId());
         dto.setCinemaHallId(ticket.getCinemaHall().getId());
@@ -53,13 +53,13 @@ public class OrderController {
         return dto;
     }
 
-    private OrderResponseDto toOrderResponseDto(Order order) {
+    private OrderResponseDto transformToOrderResponseDto(Order order) {
         OrderResponseDto dto = new OrderResponseDto();
         dto.setOrderDate(order.getOrderDate());
         dto.setUserId(order.getUser().getId());
         dto.setTicketsDto(order.getTickets()
                 .stream()
-                .map(this::toTicketDto)
+                .map(this::transformToTicketDto)
                 .collect(Collectors.toList()));
         return dto;
     }

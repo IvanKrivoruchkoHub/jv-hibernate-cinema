@@ -32,11 +32,11 @@ public class CinemaHallController {
     public List<CinemaHallDto> getAllCinemaHalls() {
         return cinemaHallService.getAll()
                 .stream()
-                .map(this::transformCinemaHallToCinemaHallDto)
+                .map(this::transformToCinemaHallDto)
                 .collect(Collectors.toList());
     }
 
-    private CinemaHallDto transformCinemaHallToCinemaHallDto(CinemaHall cinemaHall) {
+    private CinemaHallDto transformToCinemaHallDto(CinemaHall cinemaHall) {
         CinemaHallDto cinemaHallDto = new CinemaHallDto();
         cinemaHallDto.setCapacity(cinemaHall.getCapacity());
         cinemaHallDto.setDescription(cinemaHall.getDescription());

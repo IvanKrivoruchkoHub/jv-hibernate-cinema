@@ -30,27 +30,33 @@ public class MovieSessionController {
     @Autowired
     private CinemaHallService cinemaHallService;
 
+    private static final DateTimeFormatter DATE_FORMATTER
+                    = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER
+                    = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+
     @PostMapping
     public void addMovieSession(@RequestBody MovieSessionDto movieSessionDto) {
         MovieSession movieSession = new MovieSession();
         movieSession.setMovie(movieService.getById(movieSessionDto.getMovieId()));
         movieSession.setCinemaHall(cinemaHallService.getById(movieSessionDto.getCinemaHallId()));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        movieSession.setShowTime(LocalDateTime.parse(movieSessionDto.getShowTime(), formatter));
+        movieSession.setShowTime(LocalDateTime
+                .parse(movieSessionDto.getShowTime(), DATE_TIME_FORMATTER));
         movieSessionService.add(movieSession);
     }
 
     @GetMapping(value = "/available")
     public List<MovieSessionDto> getAvailableMovieSession(
             @RequestParam Long movieId, @RequestParam String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return movieSessionService.findAvailableSessions(movieId, LocalDate.parse(date, formatter))
+
+        return movieSessionService
+                .findAvailableSessions(movieId, LocalDate.parse(date, DATE_FORMATTER))
                 .stream()
-                .map(this::toMovieSessionDto)
+                .map(this::transformToMovieSessionDto)
                 .collect(Collectors.toList());
     }
 
-    private MovieSessionDto toMovieSessionDto(
+    private MovieSessionDto transformToMovieSessionDto(
             MovieSession movieSession) {
         MovieSessionDto movieSessionDto = new MovieSessionDto();
         movieSessionDto.setShowTime(movieSession.getShowTime().toString());

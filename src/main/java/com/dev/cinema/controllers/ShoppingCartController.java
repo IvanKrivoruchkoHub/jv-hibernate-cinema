@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "shoppingcarts/")
+@RequestMapping(value = "/shoppingcarts")
 public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
@@ -47,12 +47,12 @@ public class ShoppingCartController {
         responseDto.setUserId(shoppingCart.getUser().getId());
         responseDto.setTicketDtoss(shoppingCart.getTickets()
                 .stream()
-                .map(this::toTicketDto)
+                .map(this::transformToTicketDto)
                 .collect(Collectors.toList()));
         return responseDto;
     }
 
-    private TicketDto toTicketDto(Ticket ticket) {
+    private TicketDto transformToTicketDto(Ticket ticket) {
         TicketDto dto = new TicketDto();
         dto.setUserId(ticket.getUser().getId());
         dto.setCinemaHallId(ticket.getCinemaHall().getId());
