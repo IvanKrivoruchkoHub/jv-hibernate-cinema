@@ -7,6 +7,7 @@
     <groupId>hibernate-cinema</groupId>
     <artifactId>cinema-project</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <properties>
         <jdk.version>11</jdk.version>
@@ -16,11 +17,16 @@
         <maven.checkstyle.plugin.configLocation>
             https://raw.githubusercontent.com/mate-academy/style-guides/master/java/checkstyle.xml
         </maven.checkstyle.plugin.configLocation>
-        <spring.version>5.2.2.RELEASE</spring.version>
+        <spring.version>5.2.3.RELEASE</spring.version>
         <hibernate.version>5.4.5.Final</hibernate.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
