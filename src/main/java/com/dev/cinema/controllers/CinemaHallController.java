@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "cinemahalls")
+@RequestMapping(value = "/cinemahalls")
 public class CinemaHallController {
     @Autowired
     private CinemaHallService cinemaHallService;
