@@ -11,6 +11,8 @@ import com.dev.cinema.service.UserService;
 
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +35,7 @@ public class ShoppingCartController {
 
     @PostMapping(value = "/addmoviesession")
     public void addMovieSessionToShoppingCart(
-            @RequestBody ShoppingCartRequestDto shoppingCartRequestDto,
+            @RequestBody @Valid ShoppingCartRequestDto shoppingCartRequestDto,
             Authentication authentication) {
         shoppingCartService.addSession(
                 movieSessionService.getById(shoppingCartRequestDto.getMovieSessionId()),
