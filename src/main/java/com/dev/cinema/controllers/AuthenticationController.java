@@ -1,8 +1,12 @@
 package com.dev.cinema.controllers;
 
+import com.dev.cinema.dto.UserRegisterDto;
 import com.dev.cinema.dto.UserRequestDto;
 import com.dev.cinema.exceptions.AuthenticationException;
+import com.dev.cinema.security.PasswordRepeatConstraint;
 import com.dev.cinema.service.AuthenticationService;
+
+import javax.validation.Valid;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -18,7 +22,7 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping(value = "/login")
-    public void login(@RequestBody UserRequestDto userRequestDto) {
+    public void login(@RequestBody @Valid UserRequestDto userRequestDto) {
         try {
             authenticationService.login(userRequestDto.getEmail(), userRequestDto.getPassword());
         } catch (AuthenticationException e) {
@@ -27,7 +31,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register")
-    public void register(@RequestBody UserRequestDto userRequestDto) {
-        authenticationService.register(userRequestDto.getEmail(), userRequestDto.getPassword());
+    public void register(@RequestBody @Valid UserRegisterDto userRegistertDto) {
+        authenticationService.register(userRegistertDto.getEmail(), userRegistertDto.getPassword());
     }
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,14 +32,14 @@ public class OrderController {
     private UserService userService;
 
     @PostMapping(value = "/complete")
-    public void completeOrder(@RequestBody UserRequestDto userRequestDto) {
+    public void completeOrder(Authentication authentication) {
         orderService.completeOrder(shoppingCartService
-                .getByUser(userService.findByEmail(userRequestDto.getEmail())));
+                .getByUser(userService.findByEmail(authentication.getName())));
     }
 
     @GetMapping
-    public List<OrderResponseDto> getOrdersHistory(@RequestParam Long userId) {
-        return orderService.getOrderHistory(userService.getById(userId))
+    public List<OrderResponseDto> getOrdersHistory(Authentication authentication) {
+        return orderService.getOrderHistory(userService.findByEmail(authentication.getName()))
                 .stream()
                 .map(this::transformToOrderResponseDto)
                 .collect(Collectors.toList());
