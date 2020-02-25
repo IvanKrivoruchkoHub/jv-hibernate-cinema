@@ -3,7 +3,6 @@ package com.dev.cinema.controllers;
 import com.dev.cinema.dto.UserRegisterDto;
 import com.dev.cinema.dto.UserRequestDto;
 import com.dev.cinema.exceptions.AuthenticationException;
-import com.dev.cinema.security.PasswordRepeatConstraint;
 import com.dev.cinema.service.AuthenticationService;
 
 import javax.validation.Valid;

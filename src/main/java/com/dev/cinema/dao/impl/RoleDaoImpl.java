@@ -3,9 +3,7 @@ package com.dev.cinema.dao.impl;
 import com.dev.cinema.dao.RoleDao;
 import com.dev.cinema.exceptions.DataProcessingExeption;
 import com.dev.cinema.model.Role;
-import com.dev.cinema.model.User;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;

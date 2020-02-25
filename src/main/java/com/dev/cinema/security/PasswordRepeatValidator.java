@@ -8,8 +8,8 @@ import javax.validation.ConstraintValidatorContext;
 public class PasswordRepeatValidator implements
         ConstraintValidator<PasswordRepeatConstraint, UserRegisterDto> {
     @Override
-    public boolean isValid(UserRegisterDto userRegisterDto
-            , ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(UserRegisterDto userRegisterDto,
+                           ConstraintValidatorContext constraintValidatorContext) {
         return userRegisterDto.getPassword().equals(userRegisterDto.getRepeatedPassword());
     }
 }

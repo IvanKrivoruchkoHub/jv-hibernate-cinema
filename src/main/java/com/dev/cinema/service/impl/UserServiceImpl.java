@@ -1,6 +1,5 @@
 package com.dev.cinema.service.impl;
 
-import com.dev.cinema.dao.RoleDao;
 import com.dev.cinema.dao.UserDao;
 import com.dev.cinema.model.User;
 import com.dev.cinema.service.RoleService;
@@ -19,7 +18,8 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserDao userDao, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserDao userDao, RoleService roleService,
+                           PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;

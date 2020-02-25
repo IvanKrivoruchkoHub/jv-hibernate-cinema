@@ -4,7 +4,6 @@ import com.dev.cinema.dao.UserDao;
 import com.dev.cinema.exceptions.DataProcessingExeption;
 import com.dev.cinema.model.User;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;

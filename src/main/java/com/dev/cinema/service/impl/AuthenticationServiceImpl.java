@@ -1,17 +1,12 @@
 package com.dev.cinema.service.impl;
 
-import com.dev.cinema.dao.RoleDao;
 import com.dev.cinema.exceptions.AuthenticationException;
-import com.dev.cinema.model.Role;
 import com.dev.cinema.model.User;
 import com.dev.cinema.service.AuthenticationService;
 import com.dev.cinema.service.RoleService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
-import com.dev.cinema.util.HashUtil;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;

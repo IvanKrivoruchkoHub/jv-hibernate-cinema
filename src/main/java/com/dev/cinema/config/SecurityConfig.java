@@ -25,12 +25,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(getEncoder());
     }
+
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                 .antMatchers("/register", "/hello").permitAll()
-                .antMatchers("/orders/**", "/shoppingcarts/**").hasRole("USER")
-                .antMatchers(HttpMethod.POST, "/cinemahalls", "/movies", "/moviesessions").hasRole("ADMIN")
+                .antMatchers("/orders/**",
+                        "/shoppingcarts/**").hasRole("USER")
+                .antMatchers(HttpMethod.POST,
+                        "/cinemahalls", "/movies", "/moviesessions").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
