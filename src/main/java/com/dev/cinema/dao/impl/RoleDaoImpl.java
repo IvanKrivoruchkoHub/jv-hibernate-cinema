@@ -1,12 +1,11 @@
 package com.dev.cinema.dao.impl;
 
-import com.dev.cinema.dao.UserDao;
+import com.dev.cinema.dao.RoleDao;
 import com.dev.cinema.exceptions.DataProcessingExeption;
-import com.dev.cinema.model.User;
+import com.dev.cinema.model.Role;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -16,48 +15,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class RoleDaoImpl implements RoleDao {
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public User add(User user) {
+    public Role add(Role role) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            Long userId = (Long) session.save(user);
+            Long roleId = (Long) session.save(role);
             transaction.commit();
-            user.setId(userId);
-            return user;
+            role.setId(roleId);
+            return role;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingExeption("Can't insert user entity", e);
+            throw new DataProcessingExeption("Can't insert role entity", e);
         }
     }
 
     @Override
-    public User findByEmail(String email) {
+    public Role getByName(String name) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<User> criteriaQuery
-                    = criteriaBuilder.createQuery(User.class);
-            Root<User> root = criteriaQuery.from(User.class);
-            root.fetch("roles", JoinType.LEFT);
-            criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("email"), email));
+            CriteriaQuery<Role> criteriaQuery
+                    = criteriaBuilder.createQuery(Role.class);
+            Root<Role> root = criteriaQuery.from(Role.class);
+            criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("roleName"), name));
             return session.createQuery(criteriaQuery).uniqueResult();
         } catch (Exception e) {
-            throw new DataProcessingExeption("Can't find user by email", e);
-        }
-    }
-
-    @Override
-    public User getById(Long id) {
-        try (Session session = sessionFactory.openSession()) {
-            return session.get(User.class, id);
-        } catch (Exception e) {
-            throw new DataProcessingExeption("Can't find user by id", e);
+            throw new DataProcessingExeption("Can't find role by name", e);
         }
     }
 }

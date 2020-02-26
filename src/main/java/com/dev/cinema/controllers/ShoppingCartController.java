@@ -11,12 +11,14 @@ import com.dev.cinema.service.UserService;
 
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,16 +35,17 @@ public class ShoppingCartController {
 
     @PostMapping(value = "/addmoviesession")
     public void addMovieSessionToShoppingCart(
-            @RequestBody ShoppingCartRequestDto shoppingCartRequestDto,
-            @RequestParam Long userId) {
+            @RequestBody @Valid ShoppingCartRequestDto shoppingCartRequestDto,
+            Authentication authentication) {
         shoppingCartService.addSession(
                 movieSessionService.getById(shoppingCartRequestDto.getMovieSessionId()),
-                userService.getById(userId));
+                userService.findByEmail(authentication.getName()));
     }
 
     @GetMapping(value = "/byuser")
-    public ShoppingCartResponseDto getById(@RequestParam Long userId) {
-        ShoppingCart shoppingCart = shoppingCartService.getByUser(userService.getById(userId));
+    public ShoppingCartResponseDto getById(Authentication authentication) {
+        ShoppingCart shoppingCart = shoppingCartService
+                .getByUser(userService.findByEmail(authentication.getName()));
         ShoppingCartResponseDto responseDto = new ShoppingCartResponseDto();
         responseDto.setUserId(shoppingCart.getUser().getId());
         responseDto.setTicketDtoss(shoppingCart.getTickets()

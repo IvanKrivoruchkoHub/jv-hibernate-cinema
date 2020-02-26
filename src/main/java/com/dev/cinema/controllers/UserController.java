@@ -5,6 +5,8 @@ import com.dev.cinema.dto.UserResponseDto;
 import com.dev.cinema.model.User;
 import com.dev.cinema.service.UserService;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public void addUser(@RequestBody UserRequestDto userRequestDto) {
+    public void addUser(@RequestBody @Valid UserRequestDto userRequestDto) {
         User user = new User();
         user.setEmail(userRequestDto.getEmail());
         user.setPassword(userRequestDto.getEmail());
