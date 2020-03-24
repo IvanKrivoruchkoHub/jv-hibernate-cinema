@@ -1,7 +1,6 @@
 package com.dev.cinema.security;
 
 import com.dev.cinema.dto.UserRegisterDto;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 

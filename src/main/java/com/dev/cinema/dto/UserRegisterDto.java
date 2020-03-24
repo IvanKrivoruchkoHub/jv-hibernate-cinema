@@ -2,7 +2,6 @@ package com.dev.cinema.dto;
 
 import com.dev.cinema.security.EmailConstraint;
 import com.dev.cinema.security.PasswordRepeatConstraint;
-
 import javax.validation.constraints.NotNull;
 
 @PasswordRepeatConstraint

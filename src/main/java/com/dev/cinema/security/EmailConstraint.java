@@ -14,6 +14,8 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EmailConstraint {
     String message() default "Email is not valid";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

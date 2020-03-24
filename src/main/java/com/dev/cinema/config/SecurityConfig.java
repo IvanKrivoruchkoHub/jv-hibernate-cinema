@@ -1,7 +1,6 @@
 package com.dev.cinema.config;
 
 import com.dev.cinema.security.CustomUserDetailsService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -29,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/register", "/hello").permitAll()
+                .antMatchers("/register").permitAll()
                 .antMatchers(HttpMethod.POST,
                         "/cinemahalls", "/movies", "/moviesessions").hasRole("ADMIN")
                 .antMatchers("/orders/**",

@@ -4,9 +4,7 @@ import com.dev.cinema.dao.MovieDao;
 import com.dev.cinema.exceptions.DataProcessingExeption;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.service.MovieService;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

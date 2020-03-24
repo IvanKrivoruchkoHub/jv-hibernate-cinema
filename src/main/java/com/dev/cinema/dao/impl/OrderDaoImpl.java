@@ -4,14 +4,11 @@ import com.dev.cinema.dao.OrderDao;
 import com.dev.cinema.exceptions.DataProcessingExeption;
 import com.dev.cinema.model.Order;
 import com.dev.cinema.model.User;
-
 import java.util.List;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
