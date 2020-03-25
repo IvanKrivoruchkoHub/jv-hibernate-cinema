@@ -14,6 +14,8 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PasswordRepeatConstraint {
     String message() default "Password don't equal repeatedPassword";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

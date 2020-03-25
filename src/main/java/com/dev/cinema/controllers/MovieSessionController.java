@@ -5,15 +5,12 @@ import com.dev.cinema.model.MovieSession;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,17 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/moviesessions")
 public class MovieSessionController {
+    private static final DateTimeFormatter DATE_FORMATTER
+            = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER
+            = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+
     @Autowired
     private MovieSessionService movieSessionService;
     @Autowired
     private MovieService movieService;
     @Autowired
     private CinemaHallService cinemaHallService;
-
-    private static final DateTimeFormatter DATE_FORMATTER
-                    = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    private static final DateTimeFormatter DATE_TIME_FORMATTER
-                    = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     @PostMapping
     public void addMovieSession(@RequestBody @Valid MovieSessionDto movieSessionDto) {

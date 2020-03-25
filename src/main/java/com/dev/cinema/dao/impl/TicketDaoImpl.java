@@ -3,7 +3,6 @@ package com.dev.cinema.dao.impl;
 import com.dev.cinema.dao.TicketDao;
 import com.dev.cinema.exceptions.DataProcessingExeption;
 import com.dev.cinema.model.Ticket;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
