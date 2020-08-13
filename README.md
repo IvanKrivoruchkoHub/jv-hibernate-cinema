@@ -8,7 +8,7 @@
 
 This is a template for creating an e-cinema.
 <hr>
-It is a REST application that implements typical functions for an online cinema. 
+It is a REST application that implements typical functions for an online service for buying tickets to the cinema. 
 
 Available functions for all not authenticated users : 
 * registration
